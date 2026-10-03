@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="个人主页">
+  <meta name="theme-color" content="#0e0e13">
+  <title>你的名字 · 个人主页</title>
+  <style>
+    :root {
+      --bg: #0e0e13;
+      --text: #ece9e2;
+      --muted: #9b978c;
+      --border: rgba(255, 255, 255, 0.09);
+      --accent: #d8b47a;
+      --accent-soft: rgba(216, 180, 122, 0.08);
+      --card: rgba(255, 255, 255, 0.03);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 动态渐变背景：深色色块缓慢流动 */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg,
+        #0e0e13, #171031, #0e0e13, #0b2530, #241028, #0e0e13);
+      background-size: 300% 300%;
+      animation: flow 24s ease-in-out infinite;
+    }
+
+    @keyframes flow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation: none; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: clamp(48px, 10vw, 96px) 24px 40px;
+    }
+
+    /* 入场动画 */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-up {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fade-up 0.7s ease-out forwards;
+      }
+      .fade-up:nth-child(2) { animation-delay: 0.08s; }
+      .fade-up:nth-child(3) { animation-delay: 0.16s; }
+      .fade-up:nth-child(4) { animation-delay: 0.24s; }
+
+      @keyframes fade-up {
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    /* ===== 首屏 ===== */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #2d2013;
+      background: linear-gradient(135deg, #c08b4f, #e8cd9a);
+      box-shadow: 0 8px 24px rgba(192, 139, 79, 0.35);
+      user-select: none;
+    }
+
+    h1 {
+      margin-top: 24px;
+      font-size: clamp(2rem, 6vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .role {
+      margin-top: 6px;
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .intro {
+      margin-top: 20px;
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ===== 关于我 ===== */
+    section.about {
+      margin-top: clamp(56px, 12vw, 88px);
+      padding-top: clamp(40px, 8vw, 56px);
+      border-top: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .about p {
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.85;
+    }
+
+    /* ===== 页脚 ===== */
+    footer {
+      margin-top: clamp(56px, 12vw, 88px);
+      padding: 32px 0 8px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .socials a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .socials svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .copyright {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- 首屏：把「你的名字」和「全栈开发者」替换成你自己的信息 -->
+    <header class="hero">
+      <div class="avatar fade-up">你</div>
+      <h1 class="fade-up">你的名字</h1>
+      <p class="role fade-up">全栈开发者 · Full-Stack Developer</p>
+      <p class="intro fade-up">
+        我叫你的名字，是一名全栈开发者。喜欢把想法变成能用的东西，
+        也在不断学习新的技术。很高兴认识你！
+      </p>
+    </header>
+
+    <!-- 关于我：替换成你自己的描述 -->
+    <section class="about">
+      <h2>关于我</h2>
+      <p>
+        我关注产品的完整生命周期，从前端交互到后端架构都有涉猎。
+        平时喜欢写博客、参与开源项目，也热衷于尝试各种提升效率的工具。
+        工作之外，我喜欢阅读、摄影和长跑——相信长期主义的复利，
+        也相信把每一件小事做好，时间自会给出答案。
+      </p>
+    </section>
+
+    <!-- 页脚：把 href 里的 # 替换成你的真实链接 -->
+    <footer>
+      <div class="socials">
+        <a href="#" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="#" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:you@example.com" aria-label="邮箱" title="邮箱">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm10 8.6L3.6 6v12h16.8V6L12 12.6zM4.8 6l7.2 5.4L19.2 6H4.8z"/></svg>
+        </a>
+      </div>
+      <p class="copyright">© 2026 你的名字 · 用 Claude Code 制作</p>
+    </footer>
+
+  </div>
+</body>
+</html>
